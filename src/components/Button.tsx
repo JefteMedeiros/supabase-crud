@@ -1,13 +1,29 @@
-'use client'
+"use client"
 
-import React from 'react'
+import React, {
+  ButtonHTMLAttributes,
+  ForwardedRef,
+  forwardRef,
+  ForwardRefRenderFunction,
+  ReactNode,
+} from "react"
 
-interface Props {
-  data: any
+interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
+  children: ReactNode
 }
 
-export default function Button({data}: Props) {
+const ButtonComponent: ForwardRefRenderFunction<HTMLButtonElement, Props> = (
+  { children },
+  ref: ForwardedRef<HTMLButtonElement>,
+) => {
   return (
-    <button className='bg-blue-500 p-3 text-sm m-2 hover:scale-[1.02] transition-all rounded-sm text-white' onClick={() => console.log(data)}>Show data in console</button>
+    <button
+      ref={ref}
+      className="bg-blue-500 p-3 text-sm hover:scale-[1.02] transition-all rounded-sm text-white"
+    >
+      {children}
+    </button>
   )
 }
+
+export const Button = forwardRef(ButtonComponent)
